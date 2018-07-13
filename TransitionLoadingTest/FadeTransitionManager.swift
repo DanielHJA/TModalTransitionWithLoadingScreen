@@ -120,8 +120,6 @@ class FadeTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning, 
         
         if status == .push {
             container.addSubview(toView)
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-
             toView.alpha = 0
             
             workItem = DispatchWorkItem(block: {
@@ -134,11 +132,9 @@ class FadeTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning, 
         }
         
         if status == .pop {
-            
             if type == .navigation {
                 container.insertSubview(toView, belowSubview: fromView)
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-
             } else {
                 UIView.animate(withDuration: duration, animations: {
                     fromView.alpha = 0

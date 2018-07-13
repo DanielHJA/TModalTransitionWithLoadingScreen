@@ -8,7 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+protocol DispatchQueueProtocol {}
+extension DispatchQueueProtocol {
+    func delay(time: Double, closure: @escaping ()->()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+            closure()
+        }
+    }
+}
+
+class ViewController: UIViewController, DispatchQueueProtocol {
     
     private lazy var fadeTransitionManager: FadeTransitionManager = {
         return FadeTransitionManager(type: .modal)
@@ -23,15 +32,8 @@ class ViewController: UIViewController {
         vc.transitioningDelegate = fadeTransitionManager
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)
-        
         delay(time: 5.0) {
             self.fadeTransitionManager.comepleteTransition = true
-        }
-    }
-    
-    func delay(time: Double, closure: @escaping ()->()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
-            closure()
         }
     }
     
