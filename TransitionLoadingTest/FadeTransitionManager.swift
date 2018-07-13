@@ -60,7 +60,7 @@ class PresentationControl: UIPresentationController {
     
     lazy var indicator: UIActivityIndicatorView = {
         let temp = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        temp.frame = containerView!.frame
+        temp.frame = dimView.frame
         temp.startAnimating()
         return temp
     }()
